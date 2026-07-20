@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fishing</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <main id="game" class="game hidden" aria-hidden="true">
+        <section class="panel game-panel">
+            <div class="title">FISH ON THE LINE</div>
+            <div id="progress" class="progress" aria-label="Catch progress"></div>
+            <div id="bar" class="bar">
+                <div id="target" class="target"></div>
+                <div id="marker" class="marker"></div>
+            </div>
+            <div id="feedback" class="feedback">Press SPACE in the green zone</div>
+            <div class="controls">SPACE: SET HOOK &nbsp; | &nbsp; ESC: CANCEL</div>
+        </section>
+    </main>
+
+    <main id="fishing-info" class="fishing-info hidden" aria-hidden="true">
+        <section class="guide-panel" role="dialog" aria-modal="true" aria-labelledby="guide-title">
+            <header class="guide-header">
+                <div>
+                    <h1 id="guide-title">FISHING GUIDE</h1>
+                    <p id="guide-subtitle">Match the bait or lure to the fish you want.</p>
+                </div>
+                <div class="guide-actions">
+                    <label class="scale-control">
+                        <span>Scale</span>
+                        <input class="scale-slider" type="range" min="0.50" max="2.00" step="0.05" value="1.00" aria-label="Scale interface">
+                        <output class="scale-value">100%</output>
+                    </label>
+                    <button id="guide-preferred" class="guide-action" type="button">Preferred Bait</button>
+                    <button id="guide-chances" class="guide-action" type="button">All Bait</button>
+                    <button id="guide-how" class="guide-action" type="button">How to Fish</button>
+                    <button id="guide-close" class="guide-close" type="button" aria-label="Close fishing guide">X</button>
+                </div>
+            </header>
+
+            <div id="guide-summary" class="guide-view">
+                <div id="fish-grid" class="fish-grid"></div>
+
+                <footer class="guide-footer">
+                    <p>Special River, Lake, and Swamp lures are also highly effective. Spinners attract many species but are less precise.</p>
+                    <div class="controls">ESC / R: CLOSE</div>
+                </footer>
+            </div>
+
+            <div id="guide-details" class="guide-view guide-details hidden">
+                <div class="matrix-note">
+                    Higher scores mean a fish is more likely to take that tackle. These 0-100 attraction scores are relative weights; actual odds depend on nearby fish.
+                </div>
+                <div class="catch-matrix-scroll" tabindex="0" aria-label="Fish catch chance table">
+                    <table id="catch-matrix" class="catch-matrix"></table>
+                </div>
+            </div>
+
+            <div id="guide-how-to" class="guide-view guide-how-to hidden">
+                <div class="how-to-scroll">
+                    <section class="tutorial-flow" aria-label="Fishing setup steps">
+                        <article class="tutorial-step">
+                            <span class="step-number">1</span>
+                            <div class="tutorial-item-image">
+                                <img src="https://cfx-nui-rsg-inventory/html/images/weapon_fishingrod.png" alt="Fishing Rod">
+                            </div>
+                            <h2>Equip Your Rod</h2>
+                            <p>Equip the Fishing Rod before selecting any tackle.</p>
+                        </article>
+                        <div class="tutorial-arrow" aria-hidden="true">-&gt;</div>
+                        <article class="tutorial-step">
+                            <span class="step-number">2</span>
+                            <div class="tutorial-item-image">
+                                <img src="https://cfx-nui-rsg-inventory/html/images/p_baitworm01x.png" alt="Worm Bait">
+                            </div>
+                            <h2>Choose Tackle</h2>
+                            <p>Open your inventory and double-click a bait or lure to attach it.</p>
+                        </article>
+                        <div class="tutorial-arrow" aria-hidden="true">-&gt;</div>
+                        <article class="tutorial-step">
+                            <span class="step-number">3</span>
+                            <div class="cast-symbol" aria-hidden="true">~</div>
+                            <h2>Cast Into Water</h2>
+                            <p>Prepare the rod, then cast the line out into the water.</p>
+                        </article>
+                        <div class="tutorial-arrow" aria-hidden="true">-&gt;</div>
+                        <article class="tutorial-step">
+                            <span class="step-number">4</span>
+                            <div class="tutorial-item-image">
+                                <img src="https://cfx-nui-rsg-inventory/html/images/a_c_fishbluegil_01_ms.png" alt="Bluegill">
+                            </div>
+                            <h2>Wait for a Bite</h2>
+                            <p>Nearby fish that like your tackle have a chance to bite.</p>
+                        </article>
+                    </section>
+
+                    <section class="minigame-guide" aria-labelledby="minigame-guide-title">
+                        <div class="minigame-copy">
+                            <h2 id="minigame-guide-title">LAND THE FISH</h2>
+                            <p>Press <kbd>SPACE</kbd> while the moving gold marker is inside the green zone.</p>
+                            <p id="guide-miss-rule" class="miss-rule">Three misses snap the line and the fish escapes.</p>
+                        </div>
+                        <div class="example-game" aria-label="Example fishing minigame bar">
+                            <div class="example-bar">
+                                <span class="example-target"></span>
+                                <span class="example-marker"></span>
+                            </div>
+                            <div class="example-labels">
+                                <span class="target-callout">GREEN ZONE</span>
+                                <span class="marker-callout">MOVING MARKER</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="struggle-guide" aria-label="Fish struggle types">
+                        <article>
+                            <span class="struggle-icon jitter-icon" aria-hidden="true">&lt;&gt;</span>
+                            <h3>Jitter</h3>
+                            <p>The marker shakes backward and forward. Watch where it settles.</p>
+                        </article>
+                        <article>
+                            <span class="struggle-icon reverse-icon" aria-hidden="true">R</span>
+                            <h3>Reverse</h3>
+                            <p>After jittering, the marker may reverse its travel direction.</p>
+                        </article>
+                        <article>
+                            <span class="struggle-icon jump-icon" aria-hidden="true">!</span>
+                            <h3>Jump</h3>
+                            <p>After jittering, the marker may suddenly jump a large distance.</p>
+                        </article>
+                    </section>
+
+                    <section class="tackle-rules">
+                        <div><strong>Bait</strong><span>One-time use</span></div>
+                        <div><strong>Lures</strong><span>Reusable after a normal catch or cancellation</span></div>
+                    </section>
+
+                    <div class="line-warning" role="note">
+                        <strong>WARNING: A BROKEN LINE LOSES YOUR TACKLE</strong>
+                        <span>Both bait and reusable lures are lost when the line snaps.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>
