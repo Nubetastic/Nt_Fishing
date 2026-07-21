@@ -1,6 +1,6 @@
 # Nt_Fishing
 
-https://www.youtube.com/watch?v=qjWJmajmwZ8
+[![Watch the video](https://www.youtube.com/watch?v=qjWJmajmwZ8)](Showcase)
 
 Fishing for the RSG Framework with a timing-based NUI minigame, bait preferences, multiple difficulty levels, fish struggles, and an in-game fishing guide.
 
