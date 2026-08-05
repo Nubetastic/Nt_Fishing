@@ -88,3 +88,6 @@ Add this entry to your radial-menu configuration in the appropriate menu section
     shouldClose = true
 }
 ```
+
+Modified from https://github.com/Rexshack-RedM/rsg-fishing, Aug 2026.
+See the Git history for changes. Distributed under GNU GPLv3.
