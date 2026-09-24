@@ -1,21 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-
 :root {
-    --gold: #d9bd7d;
-    --gold-soft: #ead7ac;
-    --text: #eee2c5;
-    --muted: #bdb29c;
-    --panel: rgba(28, 24, 18, 0.97);
-    --panel-deep: rgba(13, 12, 10, 0.97);
-    --line: rgba(220, 194, 139, 0.72);
-    --line-soft: rgba(220, 194, 139, 0.3);
-    --control: #2b251c;
-    --control-hover: #453824;
-    --danger: #e77a66;
-    --danger-bg: rgba(91, 30, 19, 0.32);
-    --success: #7de18a;
+    --rdr-black: #000000;
+    --rdr-panel: #0a0a0a;
+    --rdr-panel-2: #141414;
+    --rdr-leather: #1c1c1c;
+    --rdr-red: #4a4a4a;
+    --rdr-red-bright: #2a2a2a;
+    --rdr-gold: #ffffff;
+    --rdr-gold-dim: #5a5a5a;
+    --rdr-parchment: #ffffff;
+    --rdr-text: #f2f2f2;
+    --rdr-muted: #9a9a9a;
+    --rdr-green: #5a7d4f;
+    --rdr-cost-ok: #6fbf73;
+    --rdr-cost-over: #e0554f;
+    --rdr-amber: #d9a441;
+    --rdr-shadow: rgba(0, 0, 0, 0.85);
+    --gold: var(--rdr-gold);
+    --gold-soft: var(--rdr-parchment);
+    --text: var(--rdr-text);
+    --muted: var(--rdr-muted);
+    --panel: var(--rdr-panel-2);
+    --panel-deep: var(--rdr-panel);
+    --line: var(--rdr-gold-dim);
+    --line-soft: rgba(255, 255, 255, 0.15);
+    --control: var(--rdr-leather);
+    --control-hover: #2e2e2e;
+    --danger: var(--rdr-cost-over);
+    --danger-bg: rgba(224, 85, 79, 0.16);
+    --success: var(--rdr-cost-ok);
     --ui-scale: 1;
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
     color: var(--text);
     background: transparent !important;
 }
@@ -30,6 +44,7 @@ body {
     height: 100%;
     margin: 0;
     overflow: hidden;
+    user-select: none;
     background: transparent !important;
 }
 
@@ -42,8 +57,8 @@ button {
 }
 
 .game {
-    width: 100%;
-    height: 100%;
+    position: fixed;
+    inset: 0;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -54,9 +69,13 @@ button {
 .panel,
 .guide-panel {
     border: 1px solid var(--line);
-    border-radius: 5px;
-    background: linear-gradient(180deg, var(--panel), var(--panel-deep));
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.68);
+    border-radius: 3px;
+    outline: 1px solid rgba(0, 0, 0, 0.6);
+    outline-offset: -5px;
+    background:
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0, rgba(255, 255, 255, 0.015) 1px, transparent 1px, transparent 4px),
+        linear-gradient(160deg, var(--rdr-panel-2), var(--rdr-panel) 60%, var(--rdr-black));
+    box-shadow: 0 20px 60px var(--rdr-shadow), inset 0 0 40px rgba(0, 0, 0, 0.5);
     transform: scale(var(--ui-scale));
     transform-origin: center center;
 }
@@ -70,10 +89,11 @@ button {
 .title {
     margin-bottom: 9px;
     color: var(--gold);
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 19px;
     font-weight: 700;
     letter-spacing: 0.05em;
+    text-shadow: 0 2px 8px #000;
 }
 
 .progress {
@@ -82,7 +102,7 @@ button {
     margin-bottom: 10px;
     justify-content: center;
     gap: 12px;
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 18px;
 }
 
@@ -105,9 +125,10 @@ button {
     width: 100%;
     height: 34px;
     overflow: hidden;
-    border: 2px solid #776a50;
+    border: 1px solid var(--rdr-gold-dim);
     border-radius: 3px;
-    background: repeating-linear-gradient(90deg, #26251f 0, #26251f 9%, #22211c 10%);
+    background: repeating-linear-gradient(90deg, #181818 0, #181818 9%, #121212 10%);
+    box-shadow: inset 0 2px 7px rgba(0, 0, 0, 0.8);
 }
 
 .target {
@@ -123,9 +144,9 @@ button {
     top: -2px;
     bottom: -2px;
     width: 8px;
-    border: 1px solid #fff4ce;
-    background: #e4c168;
-    box-shadow: 0 0 8px rgba(255, 222, 128, 0.95);
+    border: 1px solid var(--rdr-gold);
+    background: var(--rdr-gold);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.75);
     transform: translateX(-50%);
 }
 
@@ -152,7 +173,7 @@ button {
 .controls {
     margin-top: 3px;
     color: #9f9786;
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 11px;
     letter-spacing: 0.08em;
 }
@@ -165,10 +186,28 @@ button {
     align-items: center;
     justify-content: center;
     padding: 5vh 5vw;
-    background: rgba(0, 0, 0, 0.28);
+    background: transparent;
+}
+
+#vignette,
+.game::before {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    content: "";
+    pointer-events: none;
+    background:
+        radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.72) 100%),
+        rgba(0, 0, 0, 0.18);
+}
+
+#vignette {
+    z-index: 0;
 }
 
 .guide-panel {
+    position: relative;
+    z-index: 1;
     display: flex;
     width: min(1050px, 90vw);
     max-height: 84vh;
@@ -178,33 +217,54 @@ button {
 }
 
 .guide-header {
+    position: relative;
     display: flex;
     padding: 20px 24px 15px;
-    border-bottom: 1px solid rgba(220, 194, 139, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     align-items: flex-start;
     justify-content: space-between;
 }
 
+.guide-header::after {
+    position: absolute;
+    right: 24px;
+    bottom: -7px;
+    left: 24px;
+    color: var(--rdr-gold-dim);
+    content: "\2726";
+    background: linear-gradient(90deg, transparent, var(--rdr-gold-dim) 42%, transparent 42%, transparent 58%, var(--rdr-gold-dim) 58%, transparent);
+    font-size: 12px;
+    line-height: 13px;
+    text-align: center;
+}
+
 .guide-actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 9px;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.guide-nav {
     display: flex;
     align-items: center;
     gap: 9px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    flex-wrap: nowrap;
 }
 
 .scale-control {
     display: grid;
     min-height: 38px;
     padding: 5px 10px;
-    border: 1px solid #776a50;
+    border: 1px solid var(--rdr-gold-dim);
     border-radius: 3px;
     grid-template-columns: auto 110px 42px;
     align-items: center;
     gap: 8px;
     color: var(--gold-soft);
-    background: rgba(43, 37, 28, 0.82);
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    background: linear-gradient(180deg, #1c1c1c, #0a0a0a);
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 13px;
 }
 
@@ -221,56 +281,62 @@ button {
 .guide-action {
     min-height: 38px;
     padding: 0 15px;
-    border: 1px solid #776a50;
-    border-radius: 3px;
+    border: 1px solid var(--rdr-gold-dim);
+    border-radius: 2px;
     color: var(--gold-soft);
-    background: var(--control);
+    background: linear-gradient(180deg, #2e2e2e, #141414);
     cursor: pointer;
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
-    font-size: 14px;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 12.5px;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: border-color 0.15s ease, filter 0.15s ease;
 }
 
 .guide-action:hover,
 .guide-action:focus-visible {
     border-color: var(--gold);
-    color: #fff3d5;
+    color: var(--rdr-gold);
     outline: none;
-    background: var(--control-hover);
+    filter: brightness(1.3);
 }
 
 .guide-action.active {
     border-color: var(--gold);
-    color: #17130e;
-    background: var(--gold);
+    color: var(--rdr-black);
+    background: var(--rdr-gold);
 }
 
 .guide-header h1 {
     margin: 0;
     color: var(--gold);
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
-    font-size: 24px;
-    letter-spacing: 0.05em;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 25px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px #000;
 }
 
 .guide-header p,
 .guide-footer p {
     margin: 6px 0 0;
     color: var(--muted);
+    font-style: italic;
+    letter-spacing: 0.04em;
 }
 
 .guide-close {
-    width: 38px;
-    height: 38px;
-    border: 1px solid #776a50;
-    border-radius: 3px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--rdr-gold-dim);
+    border-radius: 50%;
     color: var(--text);
-    background: var(--control);
+    background: radial-gradient(circle at 35% 30%, #343434, #101010 70%);
     cursor: pointer;
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
-    font-size: 18px;
-    line-height: 30px;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 28px;
+    transition: border-color 0.15s ease, filter 0.15s ease;
 }
 
 .guide-close:hover,
@@ -304,7 +370,7 @@ button {
 .matrix-note {
     margin-bottom: 10px;
     color: var(--muted);
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 14px;
     line-height: 1.45;
 }
@@ -379,7 +445,7 @@ button {
     border-radius: 50%;
     color: #17130e;
     background: #d9bd7d;
-    font: 700 12px "Special Elite", Georgia, "Times New Roman", serif;
+    font: 700 12px "Roboto", Arial, sans-serif;
 }
 
 .tutorial-item-image,
@@ -401,7 +467,7 @@ button {
 
 .cast-symbol {
     color: #d9bd7d;
-    font: 700 55px "Special Elite", Georgia, "Times New Roman", serif;
+    font: 700 55px "Roboto", Arial, sans-serif;
 }
 
 .tutorial-step h2 {
@@ -415,7 +481,7 @@ button {
 .minigame-guide p {
     margin: 0;
     color: var(--muted);
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 15px;
     line-height: 1.45;
 }
@@ -424,7 +490,7 @@ button {
     display: grid;
     place-items: center;
     color: #d9bd7d;
-    font: 700 30px "Special Elite", Georgia, "Times New Roman", serif;
+    font: 700 30px "Roboto", Arial, sans-serif;
     animation: tutorial-arrow-pulse 1.2s ease-in-out infinite;
 }
 
@@ -448,7 +514,7 @@ button {
 .minigame-copy h2 {
     margin: 0 0 7px;
     color: var(--gold);
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 18px;
     letter-spacing: 0.05em;
 }
@@ -461,7 +527,7 @@ button {
     border-radius: 3px;
     color: #fff3d5;
     background: #453824;
-    font: 700 11px "Special Elite", Georgia, "Times New Roman", serif;
+    font: 700 11px "Roboto", Arial, sans-serif;
 }
 
 .minigame-copy .miss-rule {
@@ -513,7 +579,7 @@ button {
     position: relative;
     height: 25px;
     color: #a99d86;
-    font: 700 10px "Special Elite", Georgia, "Times New Roman", serif;
+    font: 700 10px "Roboto", Arial, sans-serif;
     letter-spacing: 0.06em;
 }
 
@@ -562,7 +628,7 @@ button {
     border-radius: 50%;
     color: #ef9a55;
     background: rgba(109, 62, 36, 0.35);
-    font: 700 34px "Special Elite", Georgia, "Times New Roman", serif;
+    font: 700 34px "Roboto", Arial, sans-serif;
 }
 
 .jitter-icon { animation: guide-jitter 0.32s linear infinite; }
@@ -596,7 +662,7 @@ button {
     gap: 16px;
     color: #c9bd9f;
     background: rgba(40, 35, 27, 0.82);
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 15px;
 }
 
@@ -613,7 +679,7 @@ button {
     color: #f1b3a7;
     background: rgba(104, 31, 25, 0.5);
     text-align: center;
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
 }
 
 .line-warning strong {
@@ -642,7 +708,7 @@ button {
     border-spacing: 0;
     color: #d8ccb1;
     background: rgba(25, 22, 17, 0.96);
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 14px;
 }
 
@@ -799,7 +865,7 @@ button {
 
 .preferred-item {
     color: #c9bd9f;
-    font-family: "Special Elite", Georgia, "Times New Roman", serif;
+    font-family: "Roboto", Arial, sans-serif;
     font-size: 15px;
 }
 
@@ -833,7 +899,7 @@ button {
 .item-image.missing::after {
     content: '?';
     color: #8f8167;
-    font: 700 24px "Special Elite", Georgia, "Times New Roman", serif;
+    font: 700 24px "Roboto", Arial, sans-serif;
 }
 
 .empty-state {
@@ -876,6 +942,7 @@ button {
 
     .guide-actions {
         width: 100%;
+        align-items: flex-start;
         justify-content: flex-start;
     }
 
@@ -924,6 +991,10 @@ button {
         font-size: 12px;
     }
 
+    .guide-nav {
+        width: 100%;
+    }
+
     .tutorial-flow,
     .tackle-rules {
         grid-template-columns: 1fr;
@@ -936,4 +1007,173 @@ button {
     .scale-value {
         text-align: left;
     }
+}
+
+/* RSG monochrome leather theme */
+.matrix-note,
+.tutorial-step p,
+.struggle-guide p,
+.minigame-guide p,
+.tutorial-arrow,
+.minigame-copy h2,
+.minigame-copy kbd,
+.example-labels,
+.struggle-icon,
+.tackle-rules div,
+.line-warning,
+.catch-matrix,
+.preferred-item,
+.item-image.missing::after {
+    font-family: "Roboto", Arial, sans-serif;
+}
+
+.fish-grid,
+.catch-matrix-scroll,
+.how-to-scroll {
+    scrollbar-color: var(--rdr-gold-dim) var(--rdr-panel);
+}
+
+.fish-grid::-webkit-scrollbar-track,
+.catch-matrix-scroll::-webkit-scrollbar-track,
+.how-to-scroll::-webkit-scrollbar-track {
+    background: var(--rdr-panel);
+}
+
+.fish-grid::-webkit-scrollbar-thumb,
+.catch-matrix-scroll::-webkit-scrollbar-thumb,
+.how-to-scroll::-webkit-scrollbar-thumb {
+    border-color: var(--rdr-panel);
+    background: var(--rdr-gold-dim);
+}
+
+.tutorial-step,
+.minigame-guide,
+.struggle-guide article,
+.fish-card,
+.empty-state {
+    border-color: rgba(255, 255, 255, 0.18);
+    border-radius: 2px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.15));
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.tutorial-step:hover,
+.struggle-guide article:hover,
+.fish-card:hover {
+    border-color: var(--rdr-gold-dim);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(0, 0, 0, 0.1));
+    transform: translateX(2px);
+}
+
+.step-number {
+    border-color: var(--rdr-gold-dim);
+    color: var(--rdr-black);
+    background: var(--rdr-gold);
+    font-family: "Roboto", Arial, sans-serif;
+}
+
+.tutorial-item-image,
+.cast-symbol,
+.item-image {
+    border: 1px solid var(--rdr-gold-dim);
+    background: radial-gradient(circle, #2d2d2d, #101010 72%);
+}
+
+.cast-symbol,
+.tutorial-arrow,
+.minigame-copy h2,
+.marker-callout,
+.tutorial-step h2,
+.struggle-guide h3,
+.tackle-rules strong,
+.matrix-tackle-heading,
+.matrix-fish,
+.fish-identity h2 {
+    color: var(--rdr-gold);
+}
+
+.minigame-copy kbd {
+    border-color: var(--rdr-gold-dim);
+    color: var(--rdr-text);
+    background: linear-gradient(180deg, #2e2e2e, #141414);
+}
+
+.example-bar {
+    border: 1px solid var(--rdr-gold-dim);
+    background: repeating-linear-gradient(90deg, #181818 0, #181818 9%, #121212 10%);
+    box-shadow: inset 0 2px 7px rgba(0, 0, 0, 0.8);
+}
+
+.example-marker {
+    border-color: var(--rdr-gold);
+    background: var(--rdr-gold);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.75);
+}
+
+.struggle-icon {
+    border: 1px solid var(--rdr-gold-dim);
+    color: var(--rdr-amber);
+    background: radial-gradient(circle, #2d2d2d, #101010 72%);
+}
+
+.tackle-rules div {
+    border-left-color: var(--rdr-gold-dim);
+    color: var(--rdr-muted);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.18));
+}
+
+.line-warning {
+    border: 1px solid var(--rdr-cost-over);
+    color: #f0aaa6;
+    background: rgba(224, 85, 79, 0.13);
+}
+
+.catch-matrix-scroll {
+    border-color: var(--rdr-gold-dim);
+    border-radius: 2px;
+    scrollbar-color: var(--rdr-gold-dim) var(--rdr-panel);
+}
+
+.catch-matrix {
+    color: var(--rdr-text);
+    background: var(--rdr-panel);
+}
+
+.catch-matrix th,
+.catch-matrix td {
+    border-color: rgba(255, 255, 255, 0.13);
+}
+
+.catch-matrix thead th,
+.matrix-fish-heading,
+.matrix-fish {
+    background: #181818;
+}
+
+.catch-matrix thead .matrix-fish-heading {
+    color: var(--rdr-gold);
+}
+
+.chance-none {
+    color: #696969;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.chance-low {
+    color: #e4b75c;
+    background: rgba(217, 164, 65, 0.12);
+}
+
+.chance-medium {
+    color: var(--rdr-amber);
+    background: rgba(217, 164, 65, 0.2);
+}
+
+.chance-high {
+    color: #8bd18e;
+    background: rgba(90, 125, 79, 0.28);
+}
+
+.guide-footer {
+    border-top-color: rgba(255, 255, 255, 0.15);
 }
